@@ -1,3 +1,8 @@
+package allure.git_hub;
+
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selectors.withText;
@@ -10,6 +15,7 @@ public class SelenideTest {
 
         @Test
         public void testGitHubIssue() {
+            SelenideLogger.addListener("allure", new AllureSelenide());
 
             open("https://github.com");
 
@@ -20,6 +26,6 @@ public class SelenideTest {
             $(linkText("Denis-Pronin94/Student-Registration-Form")).click();
             $(partialLinkText("Issues")).click();
 
-            $(withText("#2")).click();
+            $(withText("#2")).should(Condition.visible);
     }
 }
