@@ -1,7 +1,11 @@
 package allure.git_hub;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.WebDriverRunner;
+import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
@@ -36,5 +40,14 @@ public class WebSteps {
     @Step("Проверяем, что существует Issue с номером {number}")
     public void shouldSeeIssueWithNumber(int number) {
         $(withText("#" + number)).should(Condition.visible);
+        attachSreenshot();
+    }
+
+    @Attachment(value = "Мой любимый скриншот", type = "image/png", fileExtension = "png")
+    public byte[] attachSreenshot() {
+        return ((TakesScreenshot)WebDriverRunner.getWebDriver()).getScreenshotAs(OutputType.BYTES);
     }
 }
+
+
+
